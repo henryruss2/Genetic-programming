@@ -115,7 +115,7 @@ m = 0
 #randomly edit the program
 def modify(code,code2):
         workspace = [x for x in code]
-        for x in range(random.randint(1,10)):
+        for x in range(random.randint(0,10)):
             z = random.randint(0,len(workspace)-1)
             select = random.randint(1,4)
             #remove a character
@@ -129,7 +129,6 @@ def modify(code,code2):
             #insert a charcter
             elif select == 3:
                 workspace.insert(z,random.choice(("\<","\>","\+","\-","\[","\]","\.","\,")))
-            
             #splice a piece of code
             elif select == 4:
                 chunks = code2[1].split('s')
@@ -188,7 +187,7 @@ while Solved == False:
               continue
         if fit > highscore:
             highscore = fit
-            best.append(each[1])
+            best.append([each[1],each[0],each[2]])
             if each[0] == 'hello world':
                 solved =True
                 finalcode = each[1]
@@ -198,7 +197,7 @@ while Solved == False:
         best.pop(0)
     while len(best) < 100:
         print(len(best))
-        best.append(best[-1])
+        best.append(best[-1][0])
     NextGen = []
     for current in best:
         NextGen.append(modify(current, best[best.index(current)-1]))
