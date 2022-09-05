@@ -131,7 +131,7 @@ def modify(code,code2):
                 workspace.insert(z,random.choice(("\<","\>","\+","\-","\[","\]","\.","\,")))
             #splice a piece of code
             elif select == 4:
-                chunks = code2[1].split('s')
+                chunks = code2[0].split('s')[0]
                 workspace.insert(z,[random.randint(0,len(chunks))-1])
         return workspace
 
