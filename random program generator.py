@@ -16,30 +16,30 @@ def interpret(code):
                 if pointerLocation > 0:
                     pointerLocation -= 1
                     t = time.time() - t1
-                    if t > 1:
+                    if t > 0.5:
                         return [result,code,t]
             elif code[i] == '>':
                 pointerLocation += 1
                 t = time.time() - t1
-                if t > 1:
+                if t > 0.5:
                         return [result,code,t]
                 if len(array) <= pointerLocation:
                     array.append(0)
             elif code[i] == '+':
                 array[pointerLocation] += 1
                 t = time.time() - t1
-                if t > 1:
+                if t > 0.5:
                         return [result,code,t]
             elif code[i] == '-':
                 if array[pointerLocation] > 0:
                     array[pointerLocation] -= 1
                 t = time.time() - t1
-                if t > 1:
+                if t > 0.5:
                         return [result,code,t]
             elif code[i] == '.':
                 result += chr(array[pointerLocation])
                 t = time.time() - t1
-                if t > 1:
+                if t > 0.5:
                         return [result,code,t]
             elif code[i] == ',':
                #x = input("Input (1 CHARACTER!):")
@@ -50,48 +50,48 @@ def interpret(code):
                     y = ord(x)
                 array[pointerLocation] = y
                 t = time.time() - t1
-                if t > 1:
+                if t > 0.5:
                     return [result,code,t]
             elif code[i] == '[':
                 if array[pointerLocation] == 0:
                     open_braces = 1
                     while open_braces > 0:
                         t = time.time() - t1
-                        if t > 1:
+                        if t > 0.5:
                             return [result,code,t]
                         i += 1
                         if code[i] == '[':
                             open_braces += 1
                             t = time.time() - t1
-                            if t > 1:
+                            if t > 0.5:
                                 return [result,code,t]
                         elif code[i] == ']':
                             open_braces -= 1
                             t = time.time() - t1
-                            if t > 1:
+                            if t > 0.5:
                                 return [result,code,t]
             elif code[i] == ']':
                 # you don't need to check array[pointerLocation] because the matching '[' will skip behind this instruction if array[pointerLocation] is zero
                 open_braces = 1
                 while open_braces > 0:
                     t = time.time() - t1
-                    if t > 1:
+                    if t > 0.5:
                         return [result,code,t]
                     i -= 1
                     if code[i] == '[':
                         open_braces -= 1
                         t = time.time() - t1
-                        if t > 1:
+                        if t > 0.5:
                             return [result,code,t]
                     elif code[i] == ']':
                         open_braces += 1
                         t = time.time() - t1
-                        if t > 1:
+                        if t > 0.5:
                             return [result,code,t]
                 # i still gets incremented in your main while loop
                 i -= 1
             t= time.time()-t1
-            if t > 1:
+            if t > 0.5:
                 return [result,code,t]
             i += 1
         t= time.time()-t1
@@ -114,6 +114,7 @@ m = 0
 
 #randomly edit the program
 def modify(code):
+    try:
         workspace = [x for x in code]
         for x in range(random.randint(0,10)):
             z = random.randint(0,len(workspace)-1)
@@ -134,6 +135,8 @@ def modify(code):
                 #chunks = code2[0].split('s')[0]
                 #workspace.insert(z,[random.randint(0,len(chunks))-1])
         return ''.join(workspace)
+    except:
+        return ''
 
 #create a list with 100 objects
 for repeat in range(100):
@@ -191,7 +194,7 @@ while Solved == False:
             best.append([each[0],each[1],each[2]])
             if each[0] == 'hello world':
                 solved =True
-                finalcode = each[1]
+                finalcode = each[0]
                 print(finalcode)
         fitnesses.append(fit)
     while len(best) > 100:
@@ -201,6 +204,4 @@ while Solved == False:
     NextGen = []
     for c in best:
         current = c[0]
-        print(current)
         NextGen.append(modify(current))
-    print('best output: ' + str(best[-1]) + ' score:' + str(fitnesses[-1]))
