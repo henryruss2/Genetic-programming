@@ -125,11 +125,11 @@ def modify(code):
             
             #modify a character
             elif select == 2:
-                workspace[z] = random.choice(("\<","\>","\+","\-","s\[","\]s","\.","\,"))
+                workspace[z] = random.choice(("<",">","+","-","s[","]s",".",","))
             
             #insert a charcter
             elif select == 3:
-                workspace.insert(z,random.choice(("\<","\>","\+","\-","\[","\]","\.","\,")))
+                workspace.insert(z,random.choice(("<",">","+","-","[","]",".",",")))
             #splice a piece of code
             #elif select == 4:
                 #chunks = code2[0].split('s')[0]
