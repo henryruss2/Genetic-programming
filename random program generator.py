@@ -1,3 +1,4 @@
+from doctest import OutputChecker
 import random
 import time
 
@@ -148,6 +149,28 @@ while len(NextGen) < 100:
     NextGen.append(generaterandom())
 timer = time.time()
 
+#find the fitness of code
+def fitness(code):
+    fit=0
+    out = code[0]
+    ind = 0
+    if out == "failure:(":
+        fit = -2
+    if out == '':
+        fit -= 1
+    fit -= each[2]/10
+    for char in out:
+        if char == 'hi'[ind]:
+            fit+=5
+    for char2 in out:
+        if char2 == 'h' or char2 == 'i':
+            fit+=3
+    fit+=len(out)    
+    if len(out)> ind+1:
+        ind+=1
+    fit-= len(code[0])
+    return fit
+    
 fitnesses = []
 #main loop
 while Solved == False:
