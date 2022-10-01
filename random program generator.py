@@ -138,9 +138,10 @@ def modify(code):
 #create a list with 100 objects
 for repeat in range(100):
     NextGen.append(generaterandom())
+print(NextGen)
 
 #make sure it has 100 objects
-while len(NextGen) <= 100:
+while len(NextGen) < 100:
     NextGen.append(generaterandom())
 timer = time.time()
 
