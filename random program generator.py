@@ -168,7 +168,7 @@ def fitness(code):
     fit+=len(out)    
     if len(out)> ind+1:
         ind+=1
-    fit-= len(code[0])
+    fit-= len(code[1])
     return fit
     
 fitnesses = []
@@ -190,35 +190,17 @@ while Solved == False:
     highscore = -10
     best = []
     NextGen = []
-    #find the fitness
-    for each in results:
-        fit=0
-        final = each[0]
-        ind = 0
-        indecks = 0
-        if final == "failure:(":
-            fit = -2
-        if final == '':
-            fit -= 1
-        fit -= each[2]/10
-        for char in final:
-            if char == 'hi'[ind]:
-                fit+=5
-        for char2 in final:
-            if char2 == 'h' or char2 == 'i':
-                fit+=1
-            
-        if len(final)> ind+1:
-            ind+=1
-        else:
-              continue
+    for each in range(len(NextGen)):
+        fit = fitness(NextGen[each])
+        #find the best code
         if fit > highscore:
             highscore = fit
-            best.append([each[0],each[1],each[2]])
-            if each[0] == 'hello world':
-                solved =True
-                finalcode = each[0]
-                print(finalcode)
+            best.append(NextGen[each])
+        if each[0] == 'hi':
+            solved =True
+            finalcode = each[0]
+            print(finalcode)
+            break
         fitnesses.append(fit)
     while len(best) > 100:
         best.pop(0)
