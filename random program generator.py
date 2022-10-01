@@ -1,6 +1,6 @@
 import random
 import time
-'''
+
 #interpreter to run the code, I have no clue how it works
 def interpret(code):
     try:
@@ -98,7 +98,7 @@ def interpret(code):
         return [result,code,t]
     except:
             return ['failure:(',code,5]
-'''
+
 #create a program
 def generaterandom():
     generator = ""
@@ -111,8 +111,7 @@ NextGen = []
 results = []
 Solved = False
 m = 0
-'''
-'''
+
 #randomly edit the program
 def modify(code):
         workspace = [x for x in code]
@@ -135,8 +134,7 @@ def modify(code):
                 #chunks = code2[0].split('s')[0]
                 #workspace.insert(z,[random.randint(0,len(chunks))-1])
         return ''.join(workspace)
-print(modify(generaterandom()))
-'''
+
 #create a list with 100 objects
 for repeat in range(100):
     NextGen.append(generaterandom())
@@ -206,4 +204,3 @@ while Solved == False:
         print(current)
         NextGen.append(modify(current))
     print('best output: ' + str(best[-1][1]) + ' score:' + str(fitnesses[-1]))
-'''
