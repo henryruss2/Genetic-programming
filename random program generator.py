@@ -188,7 +188,7 @@ while Solved == False:
               continue
         if fit > highscore:
             highscore = fit
-            best.append([each[1],each[0],each[2]])
+            best.append([each[0],each[1],each[2]])
             if each[0] == 'hello world':
                 solved =True
                 finalcode = each[1]
@@ -197,11 +197,10 @@ while Solved == False:
     while len(best) > 100:
         best.pop(0)
     while len(best) < 100:
-        print(len(best))
-        best.append(best[-1][0])
+        best.append(best[-1])
     NextGen = []
     for c in best:
         current = c[0]
         print(current)
         NextGen.append(modify(current))
-    print('best output: ' + str(best[-1][1]) + ' score:' + str(fitnesses[-1]))
+    print('best output: ' + str(best[-1]) + ' score:' + str(fitnesses[-1]))
