@@ -1,4 +1,3 @@
-from doctest import OutputChecker
 import random
 import time
 
@@ -96,7 +95,7 @@ def interpret(code):
                 return [result,code,t]
             i += 1
         t= time.time()-t1
-        return [result,code,t]
+        return [result[0:2],code,t]
     except:
             return ['failure:(',code,5]
 
@@ -142,11 +141,7 @@ def modify(code):
 #create a list with 100 objects
 for repeat in range(100):
     NextGen.append(generaterandom())
-print(NextGen)
 
-#make sure it has 100 objects
-while len(NextGen) < 100:
-    NextGen.append(generaterandom())
 timer = time.time()
 
 #find the fitness of code
@@ -158,25 +153,31 @@ def fitness(code):
         fit = -2
     if out == '':
         fit -= 1
-    fit -= each[2]/10
+    print(code)
+    fit -= code[2]/10
     for char in out:
         if char == 'hi'[ind]:
             fit+=5
     for char2 in out:
         if char2 == 'h' or char2 == 'i':
             fit+=3
-    fit+=len(out)    
+    fit+= abs(2-len(out))
     if len(out)> ind+1:
         ind+=1
-    fit-= len(code[1])
+    fit-= len(code[1])/100
     return fit
-    
+
 fitnesses = []
+best = []
+notfirsttime = False
 #main loop
 while Solved == False:
-    #print the time of the generation
+    #output the time of the generation
     print('time: ' + str(time.time()-timer))
-    timer = time.time()
+    if notfirsttime:
+        print(best[-1][0][0:2] + ' ' + str(fitnesses[-1]))
+    else:
+        notfirsttime = True
     m = 0
     #run the code
     for l in range(len(NextGen)):
@@ -187,19 +188,18 @@ while Solved == False:
         #if it fails give it a bad score
         except:
             results.append(['failure:(',bfcode,5])
-    highscore = -10
-    best = []
+    highscore = -100
     NextGen = []
-    for each in range(len(NextGen)):
-        fit = fitness(NextGen[each])
+    for each in range(len(results)):
+        fit = fitness(results[each])
         #find the best code
         if fit > highscore:
             highscore = fit
-            best.append(NextGen[each])
-        if each[0] == 'hi':
+            best.append(results[each])
+        if results[each][0][0:2] == 'hi':
             solved =True
-            finalcode = each[0]
-            print(finalcode)
+            finalcode = results[each][1]
+            #print(finalcode)
             break
         fitnesses.append(fit)
     while len(best) > 100:
