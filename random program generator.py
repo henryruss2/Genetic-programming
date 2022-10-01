@@ -1,6 +1,6 @@
 import random
 import time
-
+'''
 #interpreter to run the code, I have no clue how it works
 def interpret(code):
     try:
@@ -97,8 +97,8 @@ def interpret(code):
         t= time.time()-t1
         return [result,code,t]
     except:
-            return ['failure:(',bfcode,5]
-
+            return ['failure:(',code,5]
+'''
 #create a program
 def generaterandom():
     generator = ""
@@ -111,13 +111,14 @@ NextGen = []
 results = []
 Solved = False
 m = 0
-
+'''
+'''
 #randomly edit the program
-def modify(code,code2):
+def modify(code):
         workspace = [x for x in code]
         for x in range(random.randint(0,10)):
             z = random.randint(0,len(workspace)-1)
-            select = random.randint(1,4)
+            select = random.randint(1,3)
             #remove a character
             if select == 1:
                 workspace.pop(z)
@@ -130,11 +131,12 @@ def modify(code,code2):
             elif select == 3:
                 workspace.insert(z,random.choice(("\<","\>","\+","\-","\[","\]","\.","\,")))
             #splice a piece of code
-            elif select == 4:
-                chunks = code2[0].split('s')[0]
-                workspace.insert(z,[random.randint(0,len(chunks))-1])
-        return workspace
-
+            #elif select == 4:
+                #chunks = code2[0].split('s')[0]
+                #workspace.insert(z,[random.randint(0,len(chunks))-1])
+        return ''.join(workspace)
+print(modify(generaterandom()))
+'''
 #create a list with 100 objects
 for repeat in range(100):
     NextGen.append(generaterandom())
@@ -199,6 +201,9 @@ while Solved == False:
         print(len(best))
         best.append(best[-1][0])
     NextGen = []
-    for current in best:
-        NextGen.append(modify(current, best[best.index(current)-1]))
+    for c in best:
+        current = c[0]
+        print(current)
+        NextGen.append(modify(current))
     print('best output: ' + str(best[-1][1]) + ' score:' + str(fitnesses[-1]))
+'''
