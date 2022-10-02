@@ -188,7 +188,7 @@ while Solved == False:
     # output the time of the generation
     print('time: ' + str(time.time()-timer))
     if notfirsttime:
-        print(best[-1][0][0:2] + ' ' + str(fitnesses[-1]))
+        print('best: ' + best[-1][0][0:2] + ' fitness: ' + str(fitnesses[-1]))
     else:
         notfirsttime = True
     m = 0
