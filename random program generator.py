@@ -99,7 +99,7 @@ def interpret(code):
         t = time.time()-t1
         return [result, code, t]
     except:
-        return ['failure:(', code, 5]
+        return [':(', code, 5]
 
 # create a program
 
@@ -133,8 +133,7 @@ def modify(code):
 
             # modify a character
             elif select == 2:
-                workspace[z] = random.choice(
-                    ("<", ">", "+", "-", "s[", "]s", ".", ","))
+                workspace[z] = random.choice(("<", ">", "+", "-", "[", "]", ".", ","))
 
             # insert a charcter
             elif select == 3:
@@ -160,13 +159,13 @@ timer = time.time()
 
 def fitness(code):
     fit = 0
-    out = code[0]
+    out = code[0][0:2]
     ind = 0
-    if out == "failure:(":
+    if out == ":(":
         fit = -2
     if out == '':
         fit -= 1
-    print(code)
+    print(out)
     fit -= code[2]/10
     for char in out:
         if char == 'hi'[ind]:
@@ -195,25 +194,25 @@ while Solved == False:
     m = 0
     # run the code
     for l in range(len(NextGen)):
-        bfcode = NextGen[l]
+        bfcode = NextGen[l-1]
         # try running the code
         try:
             results.append(interpret(bfcode))
         # if it fails give it a bad score
         except:
-            results.append(['failure:(', bfcode, 5])
+            results.append([':(', bfcode, 5])
     highscore = -100
     NextGen = []
     for each in range(len(results)):
-        fit = fitness(results[each])
+        fit = fitness(results[each-1])
         # find the best code
         if fit > highscore:
             highscore = fit
-            best.append(results[each])
-        if results[each][0][0:2] == 'hi':
+            best.append(results[each-1])
+        if results[each-1][0][0:2] == 'hi':
             solved = True
-            finalcode = results[each][1]
-            # print(finalcode)
+            finalcode = results[each-1][1]
+            print(finalcode)
             break
         fitnesses.append(fit)
     while len(best) > 100:
@@ -222,5 +221,5 @@ while Solved == False:
         best.append(best[-1])
     NextGen = []
     for c in best:
-        current = c[0]
-        NextGen.append(modify(current))
+        #current = c[0]
+        NextGen.append(modify(c))
