@@ -133,16 +133,18 @@ def modify(code):
 
         # modify a character
         elif select == 2:
-            workspace[z] = random.choice(("<", ">", "+", "-", "[", "]", ".", ","))
+            workspace[z] = random.choice(
+                ("<", ">", "+", "-", "[", "]", ".", ","))
 
         # insert a charcter
         elif select == 3:
-            workspace.insert(z, random.choice(("<", ">", "+", "-", "[", "]", ".", ",")))
+            workspace.insert(z, random.choice(
+                ("<", ">", "+", "-", "[", "]", ".", ",")))
         # splice a piece of code
         # elif select == 4:
             #chunks = code2[0].split('s')[0]
             # workspace.insert(z,[random.randint(0,len(chunks))-1])
-    return [code[0],''.join(workspace),code[2]]
+    return [code[0], ''.join(workspace), code[2]]
 
 
 # create a list with 100 objects
