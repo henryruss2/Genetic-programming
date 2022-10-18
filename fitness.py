@@ -6,8 +6,8 @@ def fitness(code):
         fit = -2
     if out == '':
         fit -= 1
-    print(out)
-    fit -= code[2]/10
+    print(code)
+    fit -= code[2]/100
     for char in out:
         if char == 'hi'[ind]:
             fit += 5
