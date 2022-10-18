@@ -14,7 +14,7 @@ if modified == original:
     print('modify does not modify')
 print(modified)
 # if fitness gives a good fitness score for correct code
-correctfitness = fitness.fitness(original)
+correctfitness = fitness.fitness(interpret.interpret(original))
 if correctfitness <= 10:
     print('bad fitness')
 print(correctfitness)
