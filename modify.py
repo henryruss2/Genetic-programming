@@ -3,6 +3,7 @@ import random
 
 def modify(code):
     workspace = list(code)
+    print(' workspace ' + str(workspace))
     if len(workspace) > 0:
         for x in range(random.randint(0, 10)):
             z = random.randint(0, len(workspace)-1)
