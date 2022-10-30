@@ -2,12 +2,12 @@ def fitness(code):
     fit = 0
     out = code[0][0:2]
     ind = 0
-    if out == ":(":
-        fit = -2
     if out == '':
         fit -= 1
+        print('empty -1')
     print(code)
     fit -= code[2]/100
+    print('took long time -' + str(code[2]/100))
     for char in out:
         if char == 'hi'[ind]:
             fit += 5
@@ -17,5 +17,6 @@ def fitness(code):
     fit += abs(2-len(out))
     if len(out) > ind+1:
         ind += 1
-    fit -= len(code[1])/100
+    fit -= len(code[1])/1000
+    print('long program -'+ str(len(code[1])/100))
     return fit

@@ -1,7 +1,7 @@
 import interpret
 import modify
 import fitness
-
+print(1)
 original = '+[+++++-+>++>++-++++++<<]>++.[+.]'
 # if interpret interprets correctly
 interpreted = interpret.interpret(original)[0]
