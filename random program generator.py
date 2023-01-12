@@ -2,61 +2,23 @@ import time
 import fitness
 import modify
 import interpret
-import newscript
+import random
 
-
-NextGen = []
-results = []
-Solved = False
-m = 0
-
-
-# create a list with 100 objects
-for repeat in range(100):
-    NextGen.append(newscript.generaterandom())
-
-timer = time.time()
-
-fitnesses = []
-best = []
-notfirsttime = False
-# main loop
-while Solved == False:
-    # output the time of the generation
-    print('time: ' + str(time.time()-timer))
-    if notfirsttime:
-        print('best: ' + best[-1][0][0:2] + ' fitness: ' + str(fitnesses[-1]))
-    else:
-        notfirsttime = True
-    m = 0
-    # run the code
-    for l in range(len(NextGen)):
-        bfcode = NextGen[l-1]
-        # try running the code
-        try:
-            results.append(interpret.interpret(bfcode))
-        # if it fails give it a bad score
-        except:
-            results.append([':(', bfcode, 5])
-    highscore = -100
-    NextGen = []
-    for each in range(len(results)):
-        fit = fitness.fitness(results[each-1])
-        # find the best code
-        if fit > highscore:
-            highscore = fit
-            best.append(results[each-1])
-        if results[each-1][0][0:2] == 'hi':
-            solved = True
-            finalcode = results[each-1][1]
-            print(finalcode)
-            break
-        fitnesses.append(fit)
-    while len(best) > 100:
-        best.pop(0)
-    while len(best) < 100:
-        best.append(best[-1])
-    NextGen = []
-    for c in best:
-        #current = c[0]
-        NextGen.append(modify.modify(c))
+#Define the program
+class script:
+    def __init__(self, code):
+        #create a new program
+        self.code = code
+        #Interpret the program
+        self.interpreted = interpret.interpret()
+        #set the output and the time it takes for it to run
+        self.out = self.interpreted[0]
+        self.time = self.interpreted[1]
+    def __str__(self):
+        return self.code
+scripts = []
+for i in range(1000):
+    scripts.append(script(modify.newscript(64)))
+solved = False
+while solved == False:
+    scripts.sort(key=fitness.fitness)

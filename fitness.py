@@ -1,22 +1,25 @@
-def fitness(code):
+# find the fitness of a program
+def fitness(program, intendedOut):
     fit = 0
-    out = code[0][0:2]
-    ind = 0
-    if out == '':
-        fit -= 1
-        print('empty -1')
-    print(code)
-    fit -= code[2]/100
-    print('took long time -' + str(code[2]/100))
-    for char in out:
-        if char == 'hi'[ind]:
-            fit += 5
-    for char2 in out:
-        if char2 == 'h' or char2 == 'i':
-            fit += 3
-    fit += abs(2-len(out))
-    if len(out) > ind+1:
-        ind += 1
-    fit -= len(code[1])/1000
-    print('long program -'+ str(len(code[1])/100))
+    #subtract points based on the length of the program passed
+    fit-= len(program.code) / 100
+    #subtract points based on how long the program runs (in number of instructions)
+    fit-= program.time /100
+    fit+= len(program.out.replace(intendedOut)) * 10
+    #Find the total of a string using UTF-8
+    def findTotal(text):
+        total = 0
+        for each in text:
+           total += chr(each)
+        return total
+    #What the string total should be
+    intendedTotal = findTotal(intendedOut)
+    #what the outputed string total is
+    outputtedTotal = findTotal(program.out)
+    #subtract the difference between the two
+    fit-= abs(intendedTotal-outputtedTotal)
+    if program.out == 'intendedOut':
+        print('SOLVED')
+        print(program)
+        raise ValueError
     return fit

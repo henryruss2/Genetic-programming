@@ -1,39 +1,30 @@
-def interpret(code):
-    data = {
-        'a': 0,
-        'b': 0,
-        'c': 0,
-        'd': 0,
-        'e': 0,
-        'f': 0,
-        'g': 0,
-        'h': 0,
-        'i': 0,
-        'j': 0,
-        'k': 0,
-        'l': 0,
-        'm': 0,
-        'n': 0,
-        'o': 0,
-        'p': 0,
-        'q': 0,
-        'r': 0,
-        's': 0,
-        't': 0,
-        'u': 0,
-        'v': 0,
-        'w': 0,
-        'x': 0,
-        'y': 0,
-        'z': 0
-        }
-    result = ''
-    for i in range(len(code)):
-        current = code.split('\n')[i]
-        if current.contains('output'):
-            result += (ord(int(current[6])))
-            continue
-        elif current.contains('input'):
-            data[current[5]] = 0
-        elif current.contains('for('):
-            
+def interpret(code, maxBytes=1000):
+    i = 0
+    bytesRan = 0
+    data = [0]
+    pointer = 0
+    output = ''
+    while i < len(code) and bytesRan < maxBytes:
+        # increment
+        if code[i] == '+':
+            data[pointer] += 1
+        # decrement
+        elif code[i] == '-':
+            data[pointer] -= 1
+        # move pointer right
+        elif code[i] == '>':
+            if pointer + 1 > len(data):
+                data.append(0)
+            pointer += 1
+        # move pointer left
+        elif code[i] == '<':
+            pointer -= 1
+        # add output to array
+        elif code[i] == '.':
+            output += chr(data[pointer])
+        # Jump to instruction
+        elif code[i] == '}':
+            i = data[pointer]
+        i += 1
+        bytesRan += 1
+    return [output, bytesRan]
