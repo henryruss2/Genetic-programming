@@ -11,3 +11,4 @@ def newscript(length):
     code = ''
     for z in range(length):
         code+= random.choice(["<", ">", "+", "-", "}", "."])
+    return code
